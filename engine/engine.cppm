@@ -3,6 +3,7 @@ module;
 export module engine;
 export import :utils;
 export import :camera;
+export import :camera.top;
 export import :shader;
 export import :texture;
 export import :window;
@@ -14,8 +15,7 @@ export import :renderable;
 export import :renderable.text;
 export import :renderable.vectors;
 export import :renderable.points;
-export import :renderable.model;
-export import :renderable.mesh;
+export import :renderable.sprite;
 export import :entity;
 export import :entity.player;
 

@@ -11,6 +11,5 @@ export namespace Engine {
         explicit Points(const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_);
         void render() const override;
         ~Points() override;
-        void setVertices(const std::vector<float> &vertices_);
     };
 }

@@ -7,22 +7,22 @@ module;
 
 export module engine:entity;
 import :renderable;
+import :renderable.sprite;
 export namespace Engine {
     class Entity {
     public:
-        Entity(glm::vec3 position_, double yaw_, double pitch_, double speed_, const std::initializer_list<std::reference_wrapper<const Renderable>> &collidables_, float mass_);
+        Entity(glm::vec2 position_, float rotation_, double speed_, const std::initializer_list<std::reference_wrapper<const Renderable>> &collidables_, float mass_, Sprite &sprite_);
         virtual void update() = 0;
-        void setForce(glm::vec3 force_);
-        void setLookingDirection(float yaw_, float pitch_);
-        void addForce(glm::vec3 force_);
+        void setLookingDirection(float rotation_);
         void setSpeed(float _speed);
-        [[nodiscard]] float getPitch() const;
-        [[nodiscard]] float getYaw() const;
-        [[nodiscard]] glm::vec3 getPosition() const;
+        [[nodiscard]] float getRotation() const;
+        [[nodiscard]] glm::vec2 getPosition() const;
         virtual ~Entity() = default;
+        glm::vec3 front, up;
     protected:
-        glm::vec3 position, front, up, uncontrolledVelocity, force, travelVelocity;
-        float yaw, pitch, mass, speed;
+        glm::vec2 position, travelVelocity;
+        float rotation, mass, speed;
         std::vector<std::reference_wrapper<const Renderable>> collidables;
+        Sprite &sprite;
     };
 } // namespace Engine

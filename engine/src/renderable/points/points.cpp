@@ -8,7 +8,7 @@ module engine;
 
 namespace Engine {
     Points::Points(const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_) :
-        Renderable(0, 0, color, glm::vec3(0, 0, 0), vertices_, shader_) {
+        Renderable(0, 0, color, glm::vec3(0, 0, 0), glm::vec2(1, 1), vertices_, shader_) {
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
         glGenBuffers(1, &vbo);
@@ -31,12 +31,4 @@ namespace Engine {
 
     Points::~Points() = default;
 
-    void Points::setVertices(const std::vector<float> &vertices_) {
-        vertices = vertices_;
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER,
-                     sizeof(float) * vertices.size(),
-                     &vertices[0],
-                     GL_DYNAMIC_DRAW);
-    }
 } // namespace Engine

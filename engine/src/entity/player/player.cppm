@@ -2,16 +2,15 @@ module;
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <memory>
+#include <string>
 export module engine:entity.player;
 import :camera;
 import :entity;
-
 export namespace Engine {
     class Player final : public Entity {
     public:
-        Player(const glm::vec3 &position_, double yaw_, double pitch_, double speed_, const std::initializer_list<std::reference_wrapper<const Renderable>> &collidables_, float mass_);
+        Player(const glm::vec2 &position_, float rotation_, double speed_, const std::initializer_list<std::reference_wrapper<const Renderable>> &collidables_, float mass_, Sprite &sprite_);
         void update() override;
-        void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) const;
         void mouse_callback(GLFWwindow *window, double xpos, double ypos);
         void processInput(GLFWwindow *window);
         std::optional<bool> toggleInput(GLFWwindow *window, unsigned input);

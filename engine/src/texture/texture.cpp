@@ -7,25 +7,19 @@ module engine;
 
 
 namespace Engine {
-    Texture::Texture(const char *texturePath, unsigned int textureUnit, const char *imageType) : ID(0) {
-        glGenTextures(1, &this->ID);
-        glActiveTexture(textureUnit);
-        glBindTexture(GL_TEXTURE_2D, this->ID);
-        glBindTexture(GL_TEXTURE_2D,
-                      this->ID); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
-        // set the texture wrapping parameters
+    Texture::Texture(const std::string_view texturePath, const unsigned int textureUnit, const char *imageType) : id(0), unit(textureUnit) {
+        glGenTextures(1, &id);
+        glActiveTexture(unit);
+        glBindTexture(GL_TEXTURE_2D, id);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
-                        GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+                        GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         // set texture filtering parameters
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        // load image, create texture and generate mipmaps
         int width, height, nrChannels;
-        // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform;
-        // replace it with your own image path.
         stbi_set_flip_vertically_on_load(true);
-        unsigned char *data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
+        unsigned char *data = stbi_load(std::string(texturePath).c_str(), &width, &height, &nrChannels, 0);
         if (!data) {
             throw std::runtime_error("Fichier introuvable !");
         }
@@ -36,7 +30,13 @@ namespace Engine {
         stbi_image_free(data);
     }
 
-    unsigned Texture::get() const { return ID; }
+    void Texture::bind() const {
+        glActiveTexture(unit);
+        glBindTexture(GL_TEXTURE_2D, id);
+    }
+
+
+    unsigned Texture::get() const { return id; }
 
     unsigned TextureFromFile(const std::string &filename, const std::string &directory, bool gamma) {
         auto path = directory + '/' + filename;
