@@ -25,20 +25,29 @@ int main() {
         Engine::Shader textShader({"color", "projection"}, "../../engine/shaders/text/text.vert",
                                   "../../engine/shaders/text/text.frag", std::nullopt, std::nullopt, std::nullopt);
 
-
+        Engine::Shader mainShader({"objectColor", "transpose", "model", "modelNormal", "sprites"}, "../../engine/shaders/main/main.vert",
+                                  "../../engine/shaders/main/main.frag", std::nullopt, std::nullopt, std::nullopt);
+        Engine::Sprite sprite(glm::vec2(50.f,50.f),glm::vec3(0.0f, 0.0f, 0.0f), mainShader, {}, "../../game/resources/textures/sprites/awesomeface.png");
+        Engine::Player player(glm::vec2(0, 100), 0, 50.f, {}, 1.0f, sprite);
         Engine::Text coordsText("142", glm::vec3(100, 0, 0), glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
         Engine::Text fpsText("fps: 0", glm::vec3(0, 0, 0), glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
+        Engine::Vectors vectors(glm::vec3(0,0,0), mainShader, {0,0,100,100});
+        std::reference_wrapper<Engine::Shader> shaders[] = {std::reference_wrapper(mainShader)};
+        Engine::MainRenderer mainRenderer(shaders, {sprite, vectors}, player);
         while (!glfwWindowShouldClose(Engine::windows[0])) {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             Engine::updateTime();
             coordsText.render();
             fpsText.render();
-            /*coordsText.setContent("X: " + std::to_string(pos.x) + " Y: " + std::to_string(pos.y) +
-                                  " Z: " + std::to_string(pos.z));*/
+            player.processInput(Engine::windows[0]);
+            player.update();
+            mainRenderer.render();
+            glm::vec2 pos = player.getPosition();
+            coordsText.setContent("X: " + std::to_string(pos.x) + " Y: " + std::to_string(pos.y));
             glfwSwapBuffers(Engine::windows[0]);
             glfwPollEvents();
-            if (glfwGetTime() - startTime > 1.0f) {
+           if (glfwGetTime() - startTime > 1.0f) {
                 fpsText.setContent("fps: " + std::to_string(frameAmount));
                 startTime = glfwGetTime();
                 frameAmount = 0;
