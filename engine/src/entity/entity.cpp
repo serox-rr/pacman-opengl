@@ -25,4 +25,7 @@ namespace Engine {
     float Entity::getRotation() const { return rotation; }
 
     glm::vec2 Entity::getPosition() const { return position; }
+
+    Sprite &Entity::getSprite() const { return sprite; }
+
 } // namespace Engine
