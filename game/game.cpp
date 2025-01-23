@@ -52,8 +52,9 @@ int main() {
             fpsText.render();
             player.processInput(Engine::windows[0]);
             player.update();
-            mainRenderer.render();
             glm::vec2 pos = player.getPosition();
+            rectangle.setPosition(pos);
+            mainRenderer.render();
             coordsText.setContent("X: " + std::to_string(pos.x) + " Y: " + std::to_string(pos.y));
             glfwSwapBuffers(Engine::windows[0]);
             glfwPollEvents();
