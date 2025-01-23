@@ -40,7 +40,7 @@ int main() {
         Engine::Text coordsText("142", glm::vec3(100, 0, 0), glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
         Engine::Text fpsText("fps: 0", glm::vec3(0, 0, 0), glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
         Engine::Vectors vectors(glm::vec3(0, 0, 0), mainShader, {0, 0, 100, 100});
-        Engine::Rectangle rectangle(glm::vec3(0, 0, 0), simpleShader, sprite.getBoundingBox());
+        Engine::Rectangle rectangle(sprite.getScale(), glm::vec3(0, 0, 0), simpleShader, sprite.getBoundingBox());
 
         std::reference_wrapper<Engine::Shader> shaders[] = {std::reference_wrapper(mainShader), std::reference_wrapper(simpleShader)};
         Engine::MainRenderer mainRenderer(shaders, {sprite, rectangle}, player);

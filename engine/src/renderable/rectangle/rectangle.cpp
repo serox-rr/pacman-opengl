@@ -8,8 +8,8 @@ module;
 module engine;
 
 namespace Engine {
-    Rectangle::Rectangle(const glm::vec3 &color, Shader &shader_, Box &box_) :
-        Renderable(0, 0, color, glm::vec3(0, 0, 0), glm::vec2(1, 1),
+    Rectangle::Rectangle(const glm::vec2 scale_, const glm::vec3 &color, Shader &shader_, Box &box_) :
+        Renderable(0, 0, color, glm::vec3(0, 0, 0), scale_,
                    {box_.topLeft[0], box_.topLeft[1], box_.topLeft[0], box_.bottomRight[1], box_.bottomRight[0],
                     box_.bottomRight[1], box_.bottomRight[0], box_.topLeft[1]},
                    shader_), box(box_) {
