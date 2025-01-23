@@ -16,6 +16,7 @@ export import :renderable.text;
 export import :renderable.vectors;
 export import :renderable.points;
 export import :renderable.sprite;
+export import :renderable.rectangle;
 export import :entity;
 export import :entity.player;
 
