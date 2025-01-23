@@ -17,7 +17,7 @@ export namespace Engine {
         void setSpeed(float _speed);
         [[nodiscard]] float getRotation() const;
         [[nodiscard]] glm::vec2 getPosition() const;
-        Sprite &getSprite() const;
+        [[nodiscard]] Sprite &getSprite() const;
         virtual ~Entity() = default;
         glm::vec3 front, up;
     protected:

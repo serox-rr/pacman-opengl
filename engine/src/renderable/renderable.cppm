@@ -32,7 +32,7 @@ export namespace Engine {
 
         [[nodiscard]] const Shader &getShader() const { return shader; }
 
-        [[nodiscard]] std::vector<float> getVertices() const { return vertices; }
+        [[nodiscard]] std::vector<float> &getVertices() { return vertices; }
 
         [[nodiscard]] glm::vec2 getScale() const { return scale; }
 
