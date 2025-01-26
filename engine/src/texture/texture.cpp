@@ -21,7 +21,7 @@ namespace Engine {
         stbi_set_flip_vertically_on_load(true);
         unsigned char *data = stbi_load(std::string(texturePath).c_str(), &width, &height, &nrChannels, 0);
         if (!data) {
-            throw std::runtime_error("Fichier introuvable !");
+            throw std::runtime_error(std::string("File not found at path : ") + std::string(texturePath).c_str());
         }
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, !strcmp(imageType, "jpg") ? GL_RGB : GL_RGBA,
                      GL_UNSIGNED_BYTE, data);

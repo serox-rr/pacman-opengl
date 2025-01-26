@@ -1,5 +1,6 @@
 module;
 #include <glm/vec2.hpp>
+#include <string>
 #include <string_view>
 export module engine:utils;
 
