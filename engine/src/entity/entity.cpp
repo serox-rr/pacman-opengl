@@ -7,7 +7,7 @@ module engine;
 namespace Engine {
     Entity::Entity(glm::vec2 position_, float rotation_, double speed_,
                    const std::initializer_list<std::reference_wrapper<const Renderable>> &collidables_, float mass_,
-                   Sprite &sprite_) :
+                   const std::shared_ptr<Sprite>& sprite_) :
         position(position_), rotation(rotation_), travelVelocity(0, 0), front(0.0, 0.0, -1.0),
         up(0.0, 1.0, 0.0), mass(mass_), speed(speed_), collidables(collidables_),
         sprite(sprite_) {}
@@ -26,6 +26,6 @@ namespace Engine {
 
     glm::vec2 Entity::getPosition() const { return position; }
 
-    Sprite &Entity::getSprite() const { return sprite; }
+    std::shared_ptr<Sprite> Entity::getSprite() const { return sprite; }
 
 } // namespace Engine

@@ -9,7 +9,7 @@ import :entity;
 export namespace Engine {
     class Player final : public Entity {
     public:
-        Player(const glm::vec2 &position_, float rotation_, double speed_, const std::initializer_list<std::reference_wrapper<const Renderable>> &collidables_, float mass_, Sprite &sprite_);
+        Player(const glm::vec2 &position_, float rotation_, double speed_, const std::initializer_list<std::reference_wrapper<const Renderable>>& collidables_, float mass_, std::shared_ptr<Sprite> sprite_);
         void update() override;
         void mouse_callback(GLFWwindow *window, double xpos, double ypos);
         void processInput(GLFWwindow *window);

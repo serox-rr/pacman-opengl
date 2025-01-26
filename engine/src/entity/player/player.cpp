@@ -9,7 +9,7 @@ module engine;
 namespace Engine {
     Player::Player(const glm::vec2 &position_, const float rotation_, const double speed_,
                    const std::initializer_list<std::reference_wrapper<const Renderable>> &collidables_,
-                   const float mass_, Sprite &sprite_) :
+                   const float mass_, std::shared_ptr<Sprite> sprite_) :
         Entity(position_, rotation_, speed_, collidables_, mass_, sprite_), lastMouseX(windows[0].getWidth() / 2),
         lastMouseY(windows[0].getHeight() / 2), firstMouse(true),
         keyStates({{GLFW_KEY_V, false}, {GLFW_KEY_SPACE, false}}) {
@@ -27,7 +27,7 @@ namespace Engine {
     void Player::update() {
         auto tposition = travelVelocity * deltaTime + position;
         position = tposition;
-        sprite.setPosition(position);
+        sprite->setPosition(position);
         activeCamera->setPosition(position - glm::vec2(windows[0].getWidth()/2,windows[0].getHeight()/2));
         activeCamera->setLookingDirection(rotation);
     }

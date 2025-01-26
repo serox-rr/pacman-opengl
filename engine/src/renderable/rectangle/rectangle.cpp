@@ -8,12 +8,12 @@ module;
 module engine;
 
 namespace Engine {
-    Rectangle::Rectangle(const glm::vec2 scale_, const glm::vec3 &color, Shader &shader_, Box &box_) :
-        Renderable(0, 0, color, glm::vec3(0, 0, 0), scale_,
+    Rectangle::Rectangle(Shader &shader_, Box &box_) : Rectangle(glm::vec2(0,0), glm::vec2(0,0), glm::vec3(0,0,0), shader_, box_) {}
+    Rectangle::Rectangle(const glm::vec2& scale_, const glm::vec2& position_, const glm::vec3 &color, Shader &shader_, Box &box_) :
+        Renderable(0, 0, color, position_, scale_,
                    {box_.topLeft[0], box_.topLeft[1], box_.topLeft[0], box_.bottomRight[1], box_.bottomRight[0],
                     box_.bottomRight[1], box_.bottomRight[0], box_.topLeft[1]},
                    shader_), box(box_) {
-        std::cout << box_.bottomRight[0] << std::endl;
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
         glGenBuffers(1, &vbo);

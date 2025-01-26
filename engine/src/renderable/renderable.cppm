@@ -1,6 +1,7 @@
 module;
 #include <glad/glad.h>
 #include <glm/glm.hpp>
+#include <memory>
 #include <string>
 #include <vector>
 export module engine:renderable;
@@ -28,13 +29,22 @@ export namespace Engine {
             glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), &vertices[0], GL_DYNAMIC_DRAW);
         }
 
-        [[nodiscard]] glm::vec2 getPosition() const { return position; }
+        template <typename I, typename = std::enable_if_t<std::is_base_of_v<Renderable, I>>, typename... ChildArgs>
+        std::shared_ptr<I> addChild(ChildArgs&&... childArgs) {
+            auto child = std::make_shared<I>(std::forward<ChildArgs>(childArgs)...);
+            children.push_back(child);
+            return child;
+        }
+
+        [[nodiscard]] const glm::vec2 &getPosition() const { return position; }
 
         [[nodiscard]] const Shader &getShader() const { return shader; }
 
         [[nodiscard]] std::vector<float> &getVertices() { return vertices; }
 
-        [[nodiscard]] glm::vec2 getScale() const { return scale; }
+        [[nodiscard]] const glm::vec2 &getScale() const { return scale; }
+
+        [[nodiscard]] const std::vector<std::shared_ptr<Renderable>> &getChildren() const { return children; }
 
     protected:
         unsigned vao, vbo;
@@ -42,6 +52,7 @@ export namespace Engine {
         glm::vec2 position, scale;
         Shader &shader;
         std::vector<float> vertices;
+        std::vector<std::shared_ptr<Renderable>> children;
     };
 
 } // namespace Engine

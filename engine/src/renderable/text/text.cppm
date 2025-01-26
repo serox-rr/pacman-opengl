@@ -1,6 +1,6 @@
 module;
 #include <glm/glm.hpp>
-#include <glm/vec2.hpp>
+#include <string>
 #include <string_view>
 export module engine:renderable.text;
 import :renderable;
