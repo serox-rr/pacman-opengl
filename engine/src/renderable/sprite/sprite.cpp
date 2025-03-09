@@ -5,9 +5,9 @@ module;
 module engine;
 
 namespace Engine {
-    Sprite::Sprite(const glm::vec2 scale_, const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_,
+    Sprite::Sprite(const glm::vec2 scale_, glm::vec2& position_, const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_,
                    const std::string_view texturePath) :
-        Renderable(0, 0, color, glm::vec2(0, 0), scale_, vertices_, shader_),
+        Renderable(0, 0, color, position_, scale_, vertices_, shader_),
         texture(Texture(texturePath, GL_TEXTURE0, "png")) {
         vertices = {0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
                     0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 3.0f, 1.0f, 3.0f, 1.0f, 0.0f, 1.0f, 0.0f};

@@ -9,8 +9,8 @@ export namespace Engine {
     struct Box;
     class Rectangle final: public Renderable {
     public:
-        Rectangle(Shader &shader_, Box &box_);
-        Rectangle(const glm::vec2& scale_, const glm::vec2& position_, const glm::vec3 &color, Shader &shader_, Box &box_);
+        //Rectangle(glm::vec2& position_, Shader &shader_, Box &box_);
+        Rectangle(const glm::vec2& scale_, glm::vec2& position_, const glm::vec3 &color, Shader &shader_, Box &box_);
         void render() const override;
         ~Rectangle() override;
 

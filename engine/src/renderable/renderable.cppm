@@ -9,7 +9,7 @@ import :shader;
 export namespace Engine {
     class Renderable {
     public:
-        Renderable(const unsigned vao, const unsigned vbo, const glm::vec3 &color_, const glm::vec2 position_,
+        Renderable(const unsigned vao, const unsigned vbo, const glm::vec3 &color_, glm::vec2 &position_,
                    const glm::vec2 scale_, const std::vector<float> &vertices_, Shader &shader_) :
             vao(vao), vbo(vbo), color(color_), position(position_), scale(scale_), shader(shader_),
             vertices(vertices_) {};
@@ -36,7 +36,7 @@ export namespace Engine {
             return child;
         }
 
-        [[nodiscard]] const glm::vec2 &getPosition() const { return position; }
+        [[nodiscard]] glm::vec2 &getPosition() const { return position; }
 
         [[nodiscard]] const Shader &getShader() const { return shader; }
 
@@ -49,7 +49,7 @@ export namespace Engine {
     protected:
         unsigned vao, vbo;
         glm::vec3 color;
-        glm::vec2 position, scale;
+        glm::vec2 &position, scale;
         Shader &shader;
         std::vector<float> vertices;
         std::vector<std::shared_ptr<Renderable>> children;

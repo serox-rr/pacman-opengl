@@ -2,6 +2,9 @@ module;
 #include <algorithm>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
+#include <ostream>
+#include <string>
 module engine;
 
 namespace Engine {
@@ -34,8 +37,6 @@ namespace Engine {
         shader.setMat3("modelNormal", glm::transpose(glm::inverse(glm::mat3(1.0f))));
         renderable->render();
         for (const auto &child: renderable->getChildren()) {
-            child->setScale(renderable->getScale());
-            child->setPosition(renderable->getPosition());
             process(child);
         }
     }

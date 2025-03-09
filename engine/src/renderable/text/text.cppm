@@ -9,7 +9,7 @@ import :font;
 export namespace Engine {
     class Text final : public Renderable {
     public:
-        Text(std::string_view content_, const glm::vec3 &position_, const glm::vec3 &color_, float scale_, Font &font_,
+        Text(std::string_view content_, glm::vec2 &position_, const glm::vec3 &color_, float scale_, Font &font_,
              Shader &shader_);
 
         void render() const override;

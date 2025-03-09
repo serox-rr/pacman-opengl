@@ -33,16 +33,17 @@ int main() {
                                     "../../engine/shaders/simple/simple.vert",
                                     "../../engine/shaders/simple/simple.frag", std::nullopt, std::nullopt,
                                     std::nullopt);
-        auto sprite = std::make_shared<Engine::Sprite>(glm::vec2(10.f, 10.f), glm::vec3(0.0f, 0.0f, 0.0f), mainShader, std::vector<float>(),
+        glm::vec2 coordsPos(100,0),fpsPos(0,0), vectorsPos(0,0), spritePos(0,0);
+        auto sprite = std::make_shared<Engine::Sprite>(glm::vec2(10,10), spritePos, glm::vec3(0.0f, 0.0f, 0.0f), mainShader, std::vector<float>(),
                               "../../game/resources/textures/sprites/awesomeface.png");
-        sprite->addChild<Engine::Rectangle>(simpleShader, sprite->getBoundingBox());
+        sprite->addChild<Engine::Rectangle>(sprite->getScale(), sprite->getPosition(), sprite->getColor(), simpleShader, sprite->getBoundingBox());
         Engine::Player player(glm::vec2(0, 100), 0, 50.f, {}, 1.0f, sprite);
-        Engine::Text coordsText("142", glm::vec3(100, 0, 0), glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
-        Engine::Text fpsText("fps: 0", glm::vec3(0, 0, 0), glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
-        Engine::Vectors vectors(glm::vec3(0, 0, 0), mainShader, {0, 0, 100, 100});
-
+        Engine::Text coordsText("142", coordsPos, glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
+        Engine::Text fpsText("fps: 0", fpsPos, glm::vec3(0.5, 0.8f, 0.2f), 0.5f, inter, textShader);
+        Engine::Box box({0,0},{10,10});
+        auto rectangle = std::make_shared<Engine::Rectangle>(glm::vec2(10,10), fpsPos, glm::vec3(100,100,0), simpleShader, box);
         std::reference_wrapper<Engine::Shader> shaders[] = {std::reference_wrapper(mainShader), std::reference_wrapper(simpleShader)};
-        Engine::MainRenderer mainRenderer(shaders, {sprite}, player);
+        Engine::MainRenderer mainRenderer(shaders, {sprite, rectangle}, player);
         while (!glfwWindowShouldClose(Engine::windows[0])) {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

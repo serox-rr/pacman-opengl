@@ -7,8 +7,8 @@ module;
 module engine;
 
 namespace Engine {
-    Points::Points(const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_) :
-        Renderable(0, 0, color, glm::vec3(0, 0, 0), glm::vec2(1, 1), vertices_, shader_) {
+    Points::Points(glm::vec2& position_, const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_) :
+        Renderable(0, 0, color, position_, glm::vec2(1, 1), vertices_, shader_) {
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
         glGenBuffers(1, &vbo);

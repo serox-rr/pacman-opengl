@@ -8,7 +8,7 @@ import :renderable;
 export namespace Engine {
     class Points final: public Renderable {
     public:
-        explicit Points(const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_);
+        explicit Points(glm::vec2& position, const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_);
         void render() const override;
         ~Points() override;
     };

@@ -8,7 +8,7 @@ import :renderable;
 export namespace Engine {
     class Vectors final: public Renderable {
     public:
-        explicit Vectors(const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_);
+        explicit Vectors(glm::vec2 &position_, const glm::vec3 &color, Shader &shader_, const std::vector<float> &vertices_);
         void render() const override;
         ~Vectors() override;
     };
